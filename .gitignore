@@ -1,0 +1,13 @@
+# Generated artifacts
+type_faiss/
+__pycache__/
+*.pyc
+*.pyo
+
+# Experiment outputs and local data
+runs/
+data/
+
+# Editor / OS
+.DS_Store
+*.swp
