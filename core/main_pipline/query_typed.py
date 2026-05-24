@@ -275,7 +275,6 @@ def subquery_triples_to_abs_triples(
         l1_cands = retriever.topk_l1(vecs, k=l1_topk)
 
         # 4.3 Collect ALL L1/L2 pairs and rank by embedding similarity
-        # First, get all possible pairs from the retriever's metadata
         all_pairs: List[str] = []
         for l1 in retriever.l2_meta.keys():
             for l2_item in retriever.l2_meta[l1]:

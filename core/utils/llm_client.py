@@ -22,8 +22,8 @@ class VLLMClients:
         chat_model: str,
     ):
         self.embed_client = OpenAI(base_url=embed_base_url, api_key=api_key)
-        self.chat_client_sync = OpenAI(base_url=chat_base_url, api_key=api_key) # Keep sync client if needed
-        self.chat_base_url = chat_base_url # Needed for httpx
+        self.chat_client_sync = OpenAI(base_url=chat_base_url, api_key=api_key)
+        self.chat_base_url = chat_base_url
         self.embed_model = embed_model
         self.chat_model = chat_model
 
@@ -90,14 +90,9 @@ class VLLMClients:
                     "temperature": 0.7,
                     "max_tokens": 768,
                 }
-                url = f"{self.chat_base_url}chat/completions" # Use base_url from init
-                if not url.endswith("/"):
-                     if not self.chat_base_url.endswith("/"):
-                         url = f"{self.chat_base_url}/chat/completions"
-                
-                # Careful with double slash, httpx handles it usually but be safe
-                # Ensure URL ends with /chat/completions
-                
+                base = self.chat_base_url.rstrip("/")
+                url = f"{base}/chat/completions"
+
                 for attempt in range(max_retries):
                     try:
                         resp = await client.post(url, json=payload, timeout=120.0)

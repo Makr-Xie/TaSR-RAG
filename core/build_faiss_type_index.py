@@ -66,7 +66,7 @@ TAXONOMY: Dict[str, List[str]] = {
 
 
 def l2_prompt_text(l1: str, l2: str) -> str:
-    return f”L2 subtype under {l1}: {l2}”
+    return f"L2 subtype under {l1}: {l2}"
 
 
 def l1_prompt_text(l1: str) -> str:

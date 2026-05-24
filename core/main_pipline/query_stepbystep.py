@@ -95,7 +95,6 @@ Rewritten subquery:
 
 def call_llm(prompt: str, temperature: float = 0.1, max_tokens: int = 1024) -> str:
     """Call vLLM with thinking disabled."""
-    # Using simple_call_vllm from utils which supports enable_thinking=False (default)
     return simple_call_vllm(
         prompt=prompt,
         client=client_llm,
@@ -342,7 +341,6 @@ def substitute_triple_with_context(raw_triple: List[str], current_subquery: str,
     Returns:
         Substituted triple like ['William IV', 'died', '?date']
     """
-    # If no previous steps, return original
     if not previous_steps:
         return raw_triple
     
@@ -437,7 +435,6 @@ def build_doc_triples(doc_triples_list: List[Dict]) -> List[DocTriple]:
     for t in doc_triples_list:
         doc_id = str(t.get("doc_id", 0))
         raw = tuple(t.get("raw_triple", ["", "", ""]))
-        # Use type_only_triple for typed matching
         typed = tuple(t.get("type_only_triple", t.get("raw_triple", ["", "", ""])))
         result.append(DocTriple(doc_id=doc_id, raw=raw, typed=typed))
     return result
@@ -500,13 +497,12 @@ def process_query(q_rec: Dict[str, Any], doc_records_by_query: Dict[str, Any], d
         type_only_triple = triple_info.get("type_only_triple", [])
         
         # Step 0: Substitute variables in raw_triple with answers from previous steps
-        # This replaces ?person, ?date, etc. with actual resolved values
         substituted_triple = substitute_triple_with_context(raw_triple, sub_query, step_answers)
         rewritten_subquery = rewrite_subquery_with_context(sub_query, substituted_triple, step_answers)
         
         # Build QueryTriple for this single subquery (using substituted triple for raw)
         query_triple = QueryTriple(
-            raw=tuple(substituted_triple),  # Use substituted triple for embedding matching
+            raw=tuple(substituted_triple),
             typed=tuple(type_only_triple) if type_only_triple else tuple(substituted_triple)
         )
         
@@ -614,7 +610,7 @@ def main():
     with open(args.doc_file, "r", encoding="utf-8") as f:
         for line in f:
             rec = json.loads(line)
-            query_text = rec.get("question", "")  # Use question as key
+            query_text = rec.get("question", "")
             doc_records_by_query[query_text] = rec
     print(f"Loaded {len(doc_records_by_query)} doc records.")
 

@@ -319,8 +319,6 @@ if __name__ == "__main__":
             query_records.append(json.loads(line))
 
     # Load all doc records and build index by query_id
-    # Note: typed_triple_result.jsonl has query_id as top-level "id", 
-    # and doc_id inside each triple
     doc_records_by_query = {}
     with open(args.doc_file, "r", encoding="utf-8") as f:
         for line in f:
@@ -427,7 +425,6 @@ if __name__ == "__main__":
             for i, ctx in enumerate(ctxs, start=1):
                 retrieval_scores[i] = ctx.get("score", 0.0)
 
-            # If with_retrieval, multiply by retrieval score and re-rank
             if args.with_retrieval:
                 final_ranked_docs = []
                 for doc_id_str, mean_score in ranked_docs:

@@ -28,9 +28,6 @@ client = OpenAI(
 )
 
 def call_vllm(prompt: str, model: str = CHAT_MODEL) -> str:
-    # simple_call_vllm returns stripped content, but let's ensure thinking tags are handled if needed
-    # The original util `simple_call_vllm` does NOT explicitly call `strip_thinking_tags` 
-    # (it just strips whitespace), so we apply it here.
     raw_content = simple_call_vllm(
         prompt, 
         client, 
@@ -486,7 +483,6 @@ if __name__ == "__main__":
         out_file.close()
         print(f"Done. Output: {args.output_file}")
 
-    # Now reorder outputs to match input order
     print("Reordering output to match input order...")
     
     # Reload all output results

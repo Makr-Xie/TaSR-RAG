@@ -50,7 +50,7 @@ class VLLMClients:
                         {"role": "system", "content": "Return ONLY valid JSON as instructed. No extra text."},
                         {"role": "user", "content": prompt},
                     ],
-                    "temperature": 0.0,  # Use 0.0 for deterministic classification
+                    "temperature": 0.0,
                     "max_tokens": 512,
                 }
                 url = f"{self.client.base_url}chat/completions"
@@ -263,7 +263,7 @@ if __name__ == "__main__":
     parser.add_argument("--taxonomy_file", type=str, default="type_faiss/taxonomy.json")
     parser.add_argument("--chat_url", type=str, default="http://localhost:1225/v1")
     parser.add_argument("--chat_model", type=str, default="Qwen2.5-72B-Instruct")
-    parser.add_argument("--workers", type=int, default=1) # Note: we use internal async batching
+    parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--sample", type=int, default=None)
     args = parser.parse_args()
 
