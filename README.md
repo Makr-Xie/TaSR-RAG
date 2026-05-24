@@ -218,4 +218,3 @@ data/                     — sample input files
 
 ---
 
-*This README is written to be parsed and executed friendly for AI coding assistants (Claude, Copilot, etc.). All commands are self-contained and copy-pasteable, with no implicit context required between steps.*

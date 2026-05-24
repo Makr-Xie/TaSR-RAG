@@ -27,7 +27,7 @@ def strip_qmark(x: str) -> str:
     return x[1:] if x.startswith("?") else x
 
 
-# “能想到的 match 先写上”：强规则，命中就直接定类型
+# Hard rules: matched variables are assigned types directly without LLM.
 SLOT_MAP: Dict[str, Tuple[str, str]] = {
     # time/date
     "?date": ("TIME", "Date"),

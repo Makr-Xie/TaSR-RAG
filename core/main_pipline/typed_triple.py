@@ -12,7 +12,7 @@ Triple = List[str]  # ["s","p","o"]
 
 
 # ============================================================
-# 规则优先（减少 LLM/embedding 压力）
+# Rule-based typing (fast path, reduces LLM/embedding calls)
 # ============================================================
 _YEAR_RE = re.compile(r"^(?:\d{4})$")
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")

@@ -17,7 +17,6 @@ except ImportError as e:
     raise ImportError("openai not found. Install with: pip install openai") from e
 
 
-# ====== Schema.org 扩展======
 TAXONOMY: Dict[str, List[str]] = {
   "PERSON": [
     "Scientist", "Engineer", "Academic", "Politician", "Businessperson",
@@ -67,8 +66,7 @@ TAXONOMY: Dict[str, List[str]] = {
 
 
 def l2_prompt_text(l1: str, l2: str) -> str:
-    # 这个 text 会被 embed，用来让 embedding 更“语义化”
-    return f"L2 subtype under {l1}: {l2}"
+    return f”L2 subtype under {l1}: {l2}”
 
 
 def l1_prompt_text(l1: str) -> str:
@@ -80,17 +78,14 @@ def embed_texts(client: OpenAI, model: str, texts: List[str], batch_size: int) -
     for i in range(0, len(texts), batch_size):
         batch = texts[i:i+batch_size]
         resp = client.embeddings.create(model=model, input=batch)
-        # 保证顺序一致
         resp.data.sort(key=lambda x: x.index)
         vecs.extend([d.embedding for d in resp.data])
     arr = np.asarray(vecs, dtype=np.float32)
-    # cosine -> normalize，然后用 inner product
     faiss.normalize_L2(arr)
     return arr
 
 
 def build_ip_index(vectors: np.ndarray) -> "faiss.Index":
-    # cosine 相似度：先 normalize_L2，再用 IndexFlatIP
     dim = vectors.shape[1]
     index = faiss.IndexFlatIP(dim)
     index.add(vectors)
@@ -137,7 +132,6 @@ def main():
                 f, ensure_ascii=False, indent=2
             )
 
-    # 保存 taxonomy 版本（方便复现）
     with open(os.path.join(args.out_dir, "taxonomy.json"), "w", encoding="utf-8") as f:
         json.dump(TAXONOMY, f, ensure_ascii=False, indent=2)
 
