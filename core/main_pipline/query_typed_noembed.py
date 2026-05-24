@@ -34,7 +34,7 @@ try:
         _dedup_keep_order
     )
 except ImportError:
-    # If running from absQA root without main_pipline in path
+    # If running from repo root without main_pipline in path
     import sys
     sys.path.append(str(current_dir))
     from query_typed import (

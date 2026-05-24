@@ -444,8 +444,8 @@ def main():
         from config import EMBED_API_BASE, CHAT_API_BASE, EMBED_MODEL, CHAT_MODEL, API_KEY
         from utils import VLLMClients, FaissTypeRetriever
     except ImportError:
-        from absQA.config import EMBED_API_BASE, CHAT_API_BASE, EMBED_MODEL, CHAT_MODEL, API_KEY
-        from absQA.utils import VLLMClients, FaissTypeRetriever
+        from core.config import EMBED_API_BASE, CHAT_API_BASE, EMBED_MODEL, CHAT_MODEL, API_KEY
+        from core.utils import VLLMClients, FaissTypeRetriever
 
     # Strips Qwen3 <think>...</think> tags from VLLMClients.chat_batch output.
     

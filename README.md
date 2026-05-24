@@ -2,8 +2,6 @@
 
 **Type-aware Structured Retrieval for Multi-hop RAG.**
 
-📄 Paper: [https://arxiv.org/abs/2603.09341](https://arxiv.org/abs/2603.09341)
-
 TaSR-RAG converts documents and queries into typed triples — structured as `(subject, predicate, object)` with hierarchical entity types (L1/L2) — and ranks documents by matching query triples against document triples using a combined typed-score and embedding-score. This enables precise, interpretable multi-hop retrieval without dense retrieval fine-tuning.
 
 ---

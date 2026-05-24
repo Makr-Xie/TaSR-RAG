@@ -10,7 +10,7 @@ Triple = List[str]  # ["S","P","O"]
 import sys
 from pathlib import Path
 
-# Add parent directory to sys.path to allow imports from absQA
+# Add parent directory to sys.path for local imports
 current_dir = Path(__file__).resolve().parent
 if str(current_dir.parent) not in sys.path:
     sys.path.append(str(current_dir.parent))

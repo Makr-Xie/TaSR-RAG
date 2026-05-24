@@ -96,7 +96,7 @@ class VLLMClients:
                          url = f"{self.chat_base_url}/chat/completions"
                 
                 # Careful with double slash, httpx handles it usually but be safe
-                # If chat_base_url is "http://localhost:1225/v1", then we want "http://localhost:1225/v1/chat/completions"
+                # Ensure URL ends with /chat/completions
                 
                 for attempt in range(max_retries):
                     try:

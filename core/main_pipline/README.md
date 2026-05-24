@@ -1,6 +1,6 @@
 # Main Pipeline
 
-This folder contains the core document + query preprocessing stages for the TareRAG pipeline. The scripts convert documents and queries into typed triples that later feed matching and answer generation.
+This folder contains the core document + query preprocessing stages for the TaSR-RAG pipeline. The scripts convert documents and queries into typed triples that later feed matching and answer generation.
 
 ## How the pipeline works (brief)
 
@@ -29,36 +29,36 @@ Optional multi-hop answering:
 
 ```bash
 # document side
-python absQA2/absQA/main_pipline/convert_triple.py \
-  --input_file ../../eval_data_ctxs/nq_sampled_200.jsonl \
-  --output_file results/nq_sampled_200/convert_triple_result.jsonl
+python core/main_pipline/convert_triple.py \
+  --input_file data/input.jsonl \
+  --output_file runs/my_exp/convert_triple_result.jsonl
 
-python absQA2/absQA/main_pipline/typed_triple.py \
-  --input_file results/nq_sampled_200/convert_triple_result.jsonl \
-  --output_file results/nq_sampled_200/typed_triple_result.jsonl \
+python core/main_pipline/typed_triple.py \
+  --input_file runs/my_exp/convert_triple_result.jsonl \
+  --output_file runs/my_exp/typed_triple_result.jsonl \
   --faiss_dir type_faiss
 
 # query side
-python absQA2/absQA/main_pipline/query_decompose.py \
-  --input_file ../../eval_data_ctxs/nq_sampled_200.jsonl \
-  --output_file results/nq_sampled_200/query_decompose_result.jsonl
+python core/main_pipline/query_decompose.py \
+  --input_file data/input.jsonl \
+  --output_file runs/my_exp/query_decompose_result.jsonl
 
-python absQA2/absQA/main_pipline/query_triple.py \
-  --input_file results/nq_sampled_200/query_decompose_result.jsonl \
-  --output_file results/nq_sampled_200/query_triple_result.jsonl
+python core/main_pipline/query_triple.py \
+  --input_file runs/my_exp/query_decompose_result.jsonl \
+  --output_file runs/my_exp/query_triple_result.jsonl
 
-python absQA2/absQA/main_pipline/query_typed.py \
-  --input_file results/nq_sampled_200/query_triple_result.jsonl \
-  --output_file results/nq_sampled_200/query_typed_result.jsonl \
+python core/main_pipline/query_typed.py \
+  --input_file runs/my_exp/query_triple_result.jsonl \
+  --output_file runs/my_exp/query_typed_result.jsonl \
   --faiss_dir type_faiss
 ```
 
 Step-by-step answering (optional):
 
 ```bash
-python absQA2/absQA/main_pipline/query_stepbystep.py \
-  --query_file results/nq_sampled_200/query_typed_result.jsonl \
-  --doc_file results/nq_sampled_200/typed_triple_result.jsonl \
-  --data_file ../../eval_data_ctxs/nq_sampled_200.jsonl \
-  --output_file results/nq_sampled_200/stepbystep_result.jsonl
+python core/main_pipline/query_stepbystep.py \
+  --query_file runs/my_exp/query_typed_result.jsonl \
+  --doc_file runs/my_exp/typed_triple_result.jsonl \
+  --data_file data/input.jsonl \
+  --output_file runs/my_exp/stepbystep_result.jsonl
 ```

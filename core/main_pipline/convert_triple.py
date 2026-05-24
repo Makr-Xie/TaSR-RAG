@@ -13,7 +13,7 @@ TopkSpec = Tuple[str, Optional[int], Optional[int]]
 import sys
 from pathlib import Path
 
-# Add parent directory to sys.path to allow imports from absQA
+# Add parent directory to sys.path for local imports
 current_dir = Path(__file__).resolve().parent
 if str(current_dir.parent) not in sys.path:
     sys.path.append(str(current_dir.parent))
@@ -42,7 +42,7 @@ def call_vllm(prompt: str, model: str = CHAT_MODEL) -> str:
 
 
 # =====================================================
-# Prompt for Triple extraction (from absQA)
+# Prompt for triple extraction
 # =====================================================
 extract_prompt_template_with_query = """
 Your task is to extract factual triples, strictly as (subject, relation, object), from the Document that might help to answer the User Query.
